@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "linkedin language",
+    "description": "Translate any linkedin chat to any language of your choice using AI",
+    "version": "0.0.1",
+    "action": {
+      "default_popup": "popup/popup.html",
+      "default_icon": "images/testimg.png"
+    },
+    "background": {
+    "service_worker": "background/background.js"
+    },
+    "permissions": ["scripting", "activeTab"]
+}
