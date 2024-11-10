@@ -1,6 +1,6 @@
 // tailwind.config.js
 module.exports = {
-  content: ["./popup/**/*.html", "./content/**/contentScript.js"],
+  content: ["./popup/**/*.html", "./content/**/*.js"],
   theme: {
     extend: {},
   },
