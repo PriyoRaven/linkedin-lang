@@ -1,0 +1,24 @@
+.translate-text {
+    display: none;
+    position: inherit;
+    margin: 0px 15px 10px;
+    background-color: #0099db;
+    color: white;
+    font-size: 12px;
+    border-radius: 25px;
+    width: 80px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.translate-text:hover {
+    background-color: #0077b3;
+}
+
+.msg-s-event-listitem__message-bubble:hover .translate-text {
+    display: flex;
+}
