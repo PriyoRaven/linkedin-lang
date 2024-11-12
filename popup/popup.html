@@ -1,24 +1,23 @@
-<!-- popup/popup.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linkedin lang</title>
+    <title>LinkedIn Lang</title>
     <link rel="icon" type="image/png" href="/images/testimg.png">
     <link rel="stylesheet" href="/style.css">
     <script src="tailwind.js"></script>
 </head>
 
 <body class="w-96 p-6 bg-gray-100">
-    <!-- other than linkedin page -->
+    <!-- Non-LinkedIn page popup content -->
     <div id="first-popup" class="flex flex-col items-center m-5 space-y-4 text-center">
         <div class="w-24 h-24 flex justify-center">
             <img src="../images/testimg.png" alt="" class="w-full h-full object-contain">
         </div>
         <h1 class="text-3xl font-bold mb-3 text-gray-800">
-            <span class="text-sky-600">LinkTranslate -</span> A translator for LinkedIn chat
+            <span class="text-sky-600">LinkedTranslate -</span> A translator for LinkedIn chat
         </h1>
         <p class="text-gray-700 text-base">Connect with anyone, anywhere—translate LinkedIn messages instantly.</p>
         <a class="bg-sky-600 text-white font-semibold py-2 px-4 rounded shadow hover:bg-sky-500 transition duration-300"
@@ -27,28 +26,28 @@
                 href="https://github.com/PriyoRaven/" target="_blank">Priyadarsi Halder</a></p>
     </div>
 
-    <!-- linkedin page -->
+    <!-- LinkedIn page popup content -->
     <div id="inside-LinkedIn" class="flex-col hidden">
         <div id="top-inner" class="flex items-center gap-4 mb-6">
             <img src="../images/testimg.png" alt="" class="w-12">
-            <p class="text-lg font-semibold text-sky-700" id="selectedlang"></p>
+            <p class="text-lg font-semibold text-sky-700" id="selectedLangLinkedIn"></p>
             <!-- Selected language will be shown here like Selected Language:"The selected language" -->
         </div>
 
         <div id="languageSection">
-            <label for="langSelect" class="block text-gray-700 text-sm font-bold mb-2">Select Language:</label>
-            <select id="languages"
+            <label for="languagesLinkedIn" class="block text-gray-700 text-sm font-bold mb-2">Select Language:</label>
+            <select id="languagesLinkedIn"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                <option>Loading...</option> <!-- Placeholder for loading -->
+                <option>Loading...</option> <!-- Placeholder for loading right now, but need to change -->
             </select>
         </div>
 
-        <p id="confirmation" class="text-sky-700 text text-lg font-semibold" id="no-lang"></p>
+        <p id="errorMessage" class="text-red-600 font-semibold mt-2 hidden"></p>
 
         <div class="mt-4 flex justify-between items-center">
-            <button id="saveBtn"
+            <button id="saveBtnLinkedIn"
                 class="bg-sky-700 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded">Save</button>
-            <p class="font-semibold text-sm" id="confirmation"></p>
+            <p class="font-semibold text-sm" id="confirmationLinkedIn"></p>
         </div>
     </div>
 
