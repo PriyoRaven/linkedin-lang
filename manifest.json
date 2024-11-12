@@ -9,17 +9,34 @@
       "email": "priyadarsi02@gmail.com"
     }
   ],
+  
   "permissions": [
     "activeTab", 
-    "storage"
+    "storage",
+    "scripting",
+    "tabs"
   ],
+
   "background": {
     "service_worker": "background/background.js"
   },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["images/testimg.png"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
   "action": {
     "default_popup": "popup/popup.html",
-    "default_icon": "images/testimg.png"
+    "default_icon": {
+      "16": "images/testimg.png",
+      "48": "images/testimg.png",
+      "128": "images/testimg.png"
+    }
   },
+  
   "content_scripts": [
     {
       "matches": ["*://www.linkedin.com/*"],
@@ -27,5 +44,17 @@
       "css": ["content/content.css"],
       "run_at": "document_idle"
     }
+  ],
+
+  "externally_connectable": {
+    "matches": ["*://*.google.com/*"]
+  },
+  "icons": {
+    "16": "images/testimg.png",
+    "48": "images/testimg.png",
+    "128": "images/testimg.png"
+  },
+  "host_permissions": [
+    "https://microsoft-translator-text-api3.p.rapidapi.com/*"
   ]
 }
