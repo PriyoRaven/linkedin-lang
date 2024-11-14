@@ -1,73 +1,104 @@
-// popup/popup.js
-document.addEventListener("DOMContentLoaded", async () => {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+document.addEventListener("DOMContentLoaded", function () {
+  const languageSelect = document.getElementById("languagesLinkedIn");
+  const saveBtn = document.getElementById("saveBtnLinkedIn");
+  const confirmation = document.getElementById("confirmationLinkedIn");
+  const selectedLangDisplay = document.getElementById("selectedLangLinkedIn");
+  const firstPopup = document.getElementById("first-popup");
+  const insideLinkedIn = document.getElementById("inside-LinkedIn");
+  const errorMessage = document.getElementById("errorMessage");
 
-  if (tab.url.includes("linkedin.com")) {
-    // Display the LinkedIn-specific popup section
-    document.getElementById("first-popup").classList.add("hidden");
-    document.getElementById("inside-LinkedIn").classList.remove("hidden");
+  // Language options
+  const languages = {
+    en: "English",
+    es: "Spanish",
+    fr: "French",
+    de: "German",
+    it: "Italian",
+    pt: "Portuguese",
+    ru: "Russian",
+    zh: "Chinese",
+    ja: "Japanese",
+    ko: "Korean",
+    hi: "Hindi",
+    bn: "Bengali",
+    te: "Telugu",
+    ta: "Tamil",
+    mr: "Marathi",
+    ur: "Urdu",
+    gu: "Gujarati",
+    kn: "Kannada",
+    or: "Oriya",
+    ml: "Malayalam",
+    pa: "Punjabi",
+    fa: "Persian",
+    ar: "Arabic",
+    tr: "Turkish",
+    th: "Thai",
+    vi: "Vietnamese",
+    id: "Indonesian",
+    ms: "Malay",
+    tl: "Filipino",
+    sw: "Swahili",
+    nl: "Dutch",
+    sv: "Swedish",
+    fi: "Finnish",
+    da: "Danish",
+    no: "Norwegian",
+    pl: "Polish",
+    cs: "Czech",
+    sk: "Slovak",
+    hu: "Hungarian",
+    ro: "Romanian",
+    bg: "Bulgarian",
+    el: "Greek",
+    uk: "Ukrainian",
+    hr: "Croatian",
+    sr: "Serbian",
+    sl: "Slovenian",
+    et: "Estonian",
+    lv: "Latvian",
+    lt: "Lithuanian",
+    si: "Sinhala",
+  };
 
-    // Fetch saved language preference for LinkedIn
-    chrome.storage.sync.get("preferredLang", (data) => {
-      const lang = data.preferredLang?.value;
-      const langContent = data.preferredLang?.text;
-      if (lang && langContent) {
-        document.getElementById(
-          "selectedLangLinkedIn"
-        ).innerText = `Selected Language: ${langContent}`;
-      } else {
-        document.getElementById("selectedLangLinkedIn").innerText =
-          "Please select a language from the dropdown.";
-      }
-    });
-
-    // Fetch available languages and populate the dropdown
-    const langsDropdown = document.getElementById("languagesLinkedIn");
-    langsDropdown.innerHTML = "<option>Loading...</option>";
-    const languages = await fetchLang();
-
-    if (languages) {
-      langsDropdown.innerHTML = "";
-      for (const [langCode, langData] of Object.entries(languages)) {
-        langsDropdown.innerHTML += `<option value="${langCode}">${langData.name}</option>`;
-      }
-    } else {
-      document.getElementById("errorMessage").innerText =
-        "Failed to load languages. Check API key.";
+  // Check if we're on LinkedIn
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    const url = tabs[0].url;
+    if (url.includes("linkedin.com")) {
+      firstPopup.classList.add("hidden");
+      insideLinkedIn.classList.remove("hidden");
     }
-  } else {
-    // Display the generic popup section
-    document.getElementById("first-popup").classList.remove("hidden");
-    document.getElementById("inside-LinkedIn").classList.add("hidden");
-  }
-});
+  });
 
-// Save the selected language preference for LinkedIn
-document.getElementById("saveBtnLinkedIn").addEventListener("click", () => {
-  const langSelect = document.getElementById("languagesLinkedIn");
-  const lang = langSelect.value;
-  const langContent = langSelect.options[langSelect.selectedIndex].text;
+  // Populate language dropdown
+  languageSelect.innerHTML = Object.entries(languages)
+    .map(([code, name]) => `<option value="${code}">${name}</option>`)
+    .join("");
 
-  chrome.storage.sync.set(
-    { preferredLang: { text: langContent, value: lang } },
-    () => {
-      const confirmation = document.getElementById("confirmationLinkedIn");
-      if (chrome.runtime.lastError) {
-        console.error("Error saving language:", chrome.runtime.lastError);
-        confirmation.style.color = "#FF0000";
-        confirmation.innerText = "Error saving language!";
-      } else {
-        confirmation.style.color = "#25D366";
-        confirmation.innerText = "Language preference saved!";
-        document.getElementById(
-          "selectedLangLinkedIn"
-        ).innerText = `Selected Language: ${langContent}`;
+  // Load saved language preference
+  chrome.storage.sync.get(["targetLanguage"], function (result) {
+    if (result.targetLanguage) {
+      languageSelect.value = result.targetLanguage;
+      selectedLangDisplay.textContent = `Selected Language: ${
+        languages[result.targetLanguage]
+      }`;
+    }
+  });
 
-        // Clear the confirmation message after a few seconds
+  // Save language preference
+  saveBtn.addEventListener("click", function () {
+    const selectedLanguage = languageSelect.value;
+    chrome.storage.sync.set(
+      {
+        targetLanguage: selectedLanguage,
+      },
+      function () {
+        confirmation.textContent = "Settings saved!";
+        selectedLangDisplay.textContent = `Selected Language: ${languages[selectedLanguage]}`;
         setTimeout(() => {
-          confirmation.innerText = "";
-        }, 3000);
+          confirmation.textContent = "";
+        }, 2000);
       }
-    }
-  );
+    );
+  });
 });

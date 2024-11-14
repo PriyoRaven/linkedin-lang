@@ -1,33 +1,28 @@
 {
   "manifest_version": 3,
-  "name": "linkedin language",
-  "description": "Translate any linkedin chat to any language of your choice using AI",
-  "version": "0.0.1",
-  "author": [
+  "name": "LinkedTranslate",
+  "version": "1.0",
+  "description": "Translate LinkedIn messages instantly with a single click.",
+  "author" : [
     {
       "name": "Priyadarsi Halder",
       "email": "priyadarsi02@gmail.com"
     }
   ],
-  
   "permissions": [
-    "activeTab", 
     "storage",
     "scripting",
-    "tabs"
+    "activeTab",
+    "notifications",
+    "contextMenus"
   ],
-
+  "host_permissions": [
+    "https://*.linkedin.com/*",
+    "https://translate.googleapis.com/*"
+  ],
   "background": {
     "service_worker": "background/background.js"
   },
-
-  "web_accessible_resources": [
-    {
-      "resources": ["images/testimg.png"],
-      "matches": ["<all_urls>"]
-    }
-  ],
-
   "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
@@ -36,25 +31,20 @@
       "128": "images/testimg.png"
     }
   },
-  
-  "content_scripts": [
-    {
-      "matches": ["*://www.linkedin.com/*"],
-      "js": ["content/content.js"],
-      "css": ["content/content.css"],
-      "run_at": "document_idle"
-    }
-  ],
-
-  "externally_connectable": {
-    "matches": ["*://*.google.com/*"]
-  },
   "icons": {
     "16": "images/testimg.png",
     "48": "images/testimg.png",
     "128": "images/testimg.png"
   },
-  "host_permissions": [
-    "https://microsoft-translator-text-api3.p.rapidapi.com/*"
-  ]
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/*"],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"]
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": ["images/testimg.png", "images/testimg-disabled.png"],
+    "matches": ["https://*.linkedin.com/*"]
+  }]
 }
