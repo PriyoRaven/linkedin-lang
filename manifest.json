@@ -43,8 +43,11 @@
       "css": ["content/content.css"]
     }
   ],
-  "web_accessible_resources": [{
-    "resources": ["images/testimg.png", "images/testimg-disabled.png"],
-    "matches": ["https://*.linkedin.com/*"]
-  }]
+  "web_accessible_resources": [
+  {
+    "resources": ["images/testimg.png", "images/imgdisabled.png"],
+    "matches": ["https://*/*"]
+  }
+]
+
 }

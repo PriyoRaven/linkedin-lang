@@ -10,16 +10,16 @@
     <script src="tailwind.js"></script>
 </head>
 
-<body class="w-96 p-6 bg-gray-100">
+<body class="w-[400px] p-6 bg-gray-100">
     <!-- Non-LinkedIn page popup content -->
-    <div id="first-popup" class="flex flex-col items-center m-5 space-y-4 text-center">
-        <div class="w-24 h-24 flex justify-center">
+    <div id="first-popup" class="flex flex-col items-center m-5 space-y-6 text-center">
+        <div class="w-20 h-20 mb-3 flex justify-center">
             <img src="../images/testimg.png" alt="" class="w-full h-full object-contain">
         </div>
-        <h1 class="text-3xl font-bold mb-3 text-gray-800">
-            <span class="text-sky-600">LinkedTranslate -</span> A translator for LinkedIn chat
+        <h1 class="text-3xl font-bold text-gray-800">
+            <span class="text-sky-600">LinkedTranslate -</span> A LinkedIn chat translator
         </h1>
-        <p class="text-gray-700 text-base">Connect with anyone, anywhere—translate LinkedIn messages instantly.</p>
+        <p class="text-gray-700 text-base mt-3">Connect with anyone, anywhere—translate LinkedIn messages instantly.</p>
         <a class="bg-sky-600 text-white font-semibold py-2 px-4 rounded shadow hover:bg-sky-500 transition duration-300"
             href="https://www.linkedin.com/feed/" target="_blank">Get Started</a>
         <p class="text-gray-700">Crafted with ❤️ by <a class="text-sky-700 font-semibold"
@@ -38,7 +38,6 @@
             <label for="languagesLinkedIn" class="block text-gray-700 text-sm font-bold mb-2">Select Language:</label>
             <select id="languagesLinkedIn"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                <option>Loading...</option> <!-- Placeholder for loading right now, but need to change -->
             </select>
         </div>
 

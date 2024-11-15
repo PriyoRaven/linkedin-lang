@@ -40,10 +40,11 @@
   padding: 8px;
   background-color: #f0f7ff;
   border-top: none;
-  border-width: 0px 2px 2px 2px;
+  border-width: 0px 2px 3px 2px;
   border-style: solid;
-  border-color: #a6cdfa;
-  border-radius: 4px;
-  font-style: italic;
+  border-color: #badaff;
+  border-radius: 8px;
+  font-style: normal;
   color: #0a66c2;
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.5);
 }

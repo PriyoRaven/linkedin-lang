@@ -9,6 +9,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     });
   }
 });
+const isLinkedIn = tab.url && tab.url.includes("linkedin.com");
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete") {
@@ -39,9 +40,9 @@ function updateExtensionIcon(isLinkedIn) {
         128: "images/testimg.png",
       }
     : {
-        16: "images/testimg-disabled.png",
-        48: "images/testimg-disabled.png",
-        128: "images/testimg-disabled.png",
+        16: "images/imgdisabled.png",
+        48: "images/imgdisabled.png",
+        128: "images/imgdisabled.png",
       };
 
   chrome.action.setIcon({ path: iconPath });
