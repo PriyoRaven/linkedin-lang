@@ -76,41 +76,6 @@ function cleanTranslation(text) {
   return text.replace(/[\u{1F300}-\u{1F6FF}]/gu, "");
 }
 
-async function handleTranslation(text, targetLang) {
-  try {
-    const sentences = text.split(/([.!?])\s+/g);
-    const translatedSentences = [];
-
-    for (let i = 0; i < sentences.length; i += 2) {
-      const sentence = sentences[i];
-      const punctuation = sentences[i + 1] || "";
-
-      if (sentence.trim()) {
-        const response = await fetch(
-          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(
-            sentence
-          )}`
-        );
-
-        if (!response.ok) throw new Error("Translation API request failed");
-
-        const data = await response.json();
-        let translatedText = data[0][0][0];
-
-        // Clean the translated text
-        translatedText = cleanTranslation(translatedText);
-
-        translatedSentences.push(translatedText + punctuation);
-      }
-    }
-
-    return translatedSentences.join(" ");
-  } catch (error) {
-    console.error("Translation error:", error);
-    throw new Error("Translation failed. Please try again.");
-  }
-}
-
 function updateTranslationStats() {
   chrome.storage.sync.get(["translationCount"], (result) => {
     const count = result.translationCount || 0;

@@ -1,13 +1,28 @@
 // Translation function using Google Translate API which is paid but thanks to ssut for finiding a free version of it. Kinda like cracked api.
 async function translateText(text, targetLang) {
   try {
-    const response = await fetch(
-      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(
-        text
-      )}`
+    // Split the text into manageable parts based on punctuation or line breaks
+    const sentences = text.split(/(?<=[.!?])\s+/);
+
+    // Translate each part separately
+    const translatedSentences = await Promise.all(
+      sentences.map(async (sentence) => {
+        const response = await fetch(
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(
+            sentence.trim()
+          )}`
+        );
+
+        if (!response.ok) throw new Error("Translation API request failed");
+
+        const data = await response.json();
+        // Extract translated text or fallback to original if response is invalid
+        return data[0]?.[0]?.[0] || sentence;
+      })
     );
-    const data = await response.json();
-    return data[0][0][0];
+
+    // Join all translated parts back together
+    return translatedSentences.join(" ");
   } catch (error) {
     console.error("Translation error:", error);
     return "Translation failed. Please try again.";
