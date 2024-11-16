@@ -1,4 +1,4 @@
-// This script runs in the background and manages the extension's functionality.
+// background/background.js
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {
     // Below part is executed when the extension is installed for the first time to set the default values
@@ -9,14 +9,10 @@ chrome.runtime.onInstalled.addListener((details) => {
     });
   }
 });
-const isLinkedIn = tab.url && tab.url.includes("linkedin.com");
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete") {
-    // Check for LinkedIn site or not
     const isLinkedIn = tab.url && tab.url.includes("linkedin.com");
-
-    // Update extension icon based on the site
     updateExtensionIcon(isLinkedIn);
 
     // Inject content script if needed

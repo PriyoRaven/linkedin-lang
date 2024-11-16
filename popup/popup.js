@@ -1,3 +1,4 @@
+// popup/popup.js
 document.addEventListener("DOMContentLoaded", function () {
   const languageSelect = document.getElementById("languagesLinkedIn");
   const saveBtn = document.getElementById("saveBtnLinkedIn");
