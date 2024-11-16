@@ -43,7 +43,7 @@ function addTranslateToChats() {
       translateButton.classList.add("translate-text");
 
       const translateImage = document.createElement("img");
-      translateImage.src = chrome.runtime.getURL("images/testimg.png");
+      translateImage.src = chrome.runtime.getURL("images/mainimg.png");
       translateImage.alt = "Translate";
       translateImage.classList.add("translate-image");
 
@@ -98,7 +98,7 @@ function addTranslateToInput() {
       `;
 
       const translateImage = document.createElement("img");
-      translateImage.src = chrome.runtime.getURL("images/testimg.png");
+      translateImage.src = chrome.runtime.getURL("images/mainimg.png");
       translateImage.alt = "Translate";
       translateImage.style.width = "20px";
       translateImage.style.height = "20px";

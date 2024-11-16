@@ -31,9 +31,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 function updateExtensionIcon(isLinkedIn) {
   const iconPath = isLinkedIn
     ? {
-        16: "images/testimg.png",
-        48: "images/testimg.png",
-        128: "images/testimg.png",
+        16: "images/mainimg.png",
+        48: "images/mainimg.png",
+        128: "images/mainimg.png",
       }
     : {
         16: "images/imgdisabled.png",
@@ -79,7 +79,7 @@ function updateTranslationStats() {
     if (count % 100 === 0 && count > 0) {
       chrome.notifications.create({
         type: "basic",
-        iconUrl: "images/testimg.png",
+        iconUrl: "images/mainimg.png",
         title: "Translation Milestone!",
         message: `You've translated ${count} messages with LinkedTranslate!`,
       });
