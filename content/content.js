@@ -86,7 +86,7 @@ function addTranslateToInput() {
 
   messageInputs.forEach((input) => {
     if (!input.parentElement.querySelector(".translate-input-button")) {
-      // Translate button for input area designs and all
+      // Translate button for input area
       const translateButton = document.createElement("div");
       translateButton.classList.add("translate-input-button");
       translateButton.style.cssText = `
@@ -107,13 +107,36 @@ function addTranslateToInput() {
       input.parentElement.style.position = "relative";
       input.parentElement.appendChild(translateButton);
 
+      // Add MutationObserver to monitor text changes
+      const observer = new MutationObserver(() => {
+        // Show the button if it's hidden and there's text
+        if (!translateButton.style.display && input.textContent.trim()) {
+          translateButton.style.display = "block";
+        }
+      });
+
+      observer.observe(input, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+      });
+
+      // Listen for user input events to show the button
+      input.addEventListener("input", () => {
+        if (input.textContent.trim()) {
+          translateButton.style.display = "block"; // Reappear on text changes
+        }
+      });
+
       // Add click event for translation
       translateButton.addEventListener("click", async () => {
         const textToTranslate = input.textContent.trim();
         if (!textToTranslate) return;
+
         chrome.storage.sync.get(["targetLanguage"], async function (result) {
           const targetLang = result.targetLanguage || "en";
           translateButton.style.opacity = "0.5";
+
           const translatedText = await translateText(
             textToTranslate,
             targetLang
@@ -126,12 +149,10 @@ function addTranslateToInput() {
           const translatedTextParagraph = document.createElement("p");
           translatedTextParagraph.textContent = translatedText;
 
-          // Create a temporary div to handle HTML content properly
           const tempDiv = document.createElement("div");
           tempDiv.appendChild(originalTextParagraph);
           tempDiv.appendChild(translatedTextParagraph);
 
-          // Clear existing content and append new content
           input.innerHTML = tempDiv.innerHTML;
 
           // Put cursor to the end of the input area
@@ -146,8 +167,8 @@ function addTranslateToInput() {
           input.dispatchEvent(new Event("input", { bubbles: true }));
           translateButton.style.opacity = "1";
 
-          // Update translation count for milestone notifications which I will add later
-          // chrome.runtime.sendMessage({ action: "updateStats" });
+          // Hide the translate button after translation
+          translateButton.style.display = "none";
         });
       });
     }
